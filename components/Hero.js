@@ -14,9 +14,9 @@ export default function Hero({ onCTA }) {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-          <button onClick={onCTA} className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl text-lg transition-all shadow-lg shadow-blue-200 hover:shadow-blue-300 hover:-translate-y-0.5">
+          <a href="/start" className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl text-lg transition-all shadow-lg shadow-blue-200 hover:shadow-blue-300 hover:-translate-y-0.5">
             Start My Case Review →
-          </button>
+          </a>
           <a href="#how-it-works" className="border-2 border-slate-300 hover:border-blue-400 text-slate-700 font-semibold px-8 py-4 rounded-xl text-lg transition-all">
             See How It Works
           </a>
