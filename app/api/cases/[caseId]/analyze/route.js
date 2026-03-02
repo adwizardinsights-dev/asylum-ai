@@ -4,13 +4,13 @@ import { runPipeline } from '../../../../../lib/pipeline'
 
 export async function POST(request, { params }) {
   const { caseId } = params
-  const caseRecord = db.getCase(caseId)
+  const caseRecord = await db.getCase(caseId)
   if (!caseRecord) return NextResponse.json({ error: 'Case not found' }, { status: 404 })
 
   try {
-    db.updateCase(caseId, { status: 'analyzing' })
+    await db.updateCase(caseId, { status: 'analyzing' })
 
-    const files = db.getFiles(caseId)
+    const files = await db.getFiles(caseId)
     const documentTexts = files.map(f => f.text).filter(Boolean)
 
     const result = await runPipeline({
@@ -25,12 +25,12 @@ export async function POST(request, { params }) {
       },
     })
 
-    db.saveResults({ case_id: caseId, ...result })
-    db.updateCase(caseId, { status: 'complete' })
+    await db.saveResults({ case_id: caseId, ...result })
+    await db.updateCase(caseId, { status: 'complete' })
 
     return NextResponse.json({ ok: true })
   } catch (err) {
-    db.updateCase(caseId, { status: 'error', error: err.message })
+    await db.updateCase(caseId, { status: 'error', error: err.message })
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }

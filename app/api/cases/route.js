@@ -7,7 +7,7 @@ export async function POST(request) {
     const body = await request.json()
     const id = uuidv4()
 
-    db.createCase({
+    await db.createCase({
       id,
       country: body.country || '',
       current_location: body.current_location || '',

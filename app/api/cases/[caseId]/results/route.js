@@ -3,10 +3,10 @@ import { db } from '../../../../../lib/db'
 
 export async function GET(request, { params }) {
   const { caseId } = params
-  const caseRecord = db.getCase(caseId)
+  const caseRecord = await db.getCase(caseId)
   if (!caseRecord) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
-  const results = db.getResults(caseId)
+  const results = await db.getResults(caseId)
   return NextResponse.json({
     status: caseRecord.status,
     error: caseRecord.error || null,
